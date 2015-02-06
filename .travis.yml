@@ -1,10 +1,14 @@
 language: python
 python: 2.7
 env:
+  - WINEENV=py26
   - WINEENV=py27
+  - WINEENV=py33
+  - WINEENV=py34
+  - WINEENV=pypy
 before_install:
   - git clone https://github.com/WineAsCI/python-lib-template.git
   - python-lib-template/.travis-setup.sh
 install:
-  - /opt/wine-staging/bin/wine 'C:\Python27\Scripts\pip.exe' install -r boto/requirements.txt
-script: cd boto && /opt/wine-staging/bin/wine 'C:\Python27\Python.exe' tests/test.py default
+  - python-lib-template/_pip install -r boto/requirements.txt
+script: cd boto && ../python-lib-template/_python tests/test.py default
